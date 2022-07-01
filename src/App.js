@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import Map, { Source, Layer } from "react-map-gl";
+import Console from "./components/console";
 import Navbar from "./components/navbar";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
   });
   const [allData, setAllData] = useState(null);
   const [hoverInfo, setHoverInfo] = useState(null);
+  const [isConsoleOpen, setIsConsoleOpen] = useState(false);
 
   const data = useMemo(() => {
     return allData;
@@ -69,7 +71,14 @@ const App = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar
+        isConsoleOpen={isConsoleOpen}
+        setIsConsoleOpen={setIsConsoleOpen}
+      />
+      <Console
+        isConsoleOpen={isConsoleOpen}
+        setIsConsoleOpen={setIsConsoleOpen}
+      />
       <Map
         mapboxAccessToken="pk.eyJ1IjoibWFud2luZGVyc2luZ2giLCJhIjoiY2w1MHM4aWVmMDZ6ODNvb2xoaHgxaW56NSJ9.OLpR6_6ziTpsMUomgz_Btw"
         initialViewState={viewport}
