@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import Map, { Source, Layer } from "react-map-gl";
 import Console from "./components/console";
 import Navbar from "./components/navbar";
@@ -18,13 +12,23 @@ const App = () => {
     zoom: 10,
     bearing: 0,
   });
-  const [allData, setAllData] = useState(null);
+  const [mapCoordinates, setmapCoordinates] = useState(null);
   const [hoverInfo, setHoverInfo] = useState(null);
   const [isConsoleOpen, setIsConsoleOpen] = useState(false);
 
+  //user data
+  const [userData, setUserData] = useState(null);
+  const [userInSpecificArea, setUserInSpecificArea] = useState(null);
+
+  const [areaId, setAreaId] = useState(null);
+
+  const users = useMemo(() => {
+    return userData;
+  }, [userData]);
+
   const data = useMemo(() => {
-    return allData;
-  }, [allData]);
+    return mapCoordinates;
+  }, [mapCoordinates]);
 
   const layerStyle = {
     id: "data",
@@ -56,18 +60,43 @@ const App = () => {
 
     const hoveredFeature = features && features[0];
     setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
-    console.log(hoveredFeature && { feature: hoveredFeature, x, y });
   }, []);
 
   useEffect(() => {
     fetch("https://kyupid-api.vercel.app/api/areas")
       .then((resp) => resp.json())
       .then((json) => {
-        setAllData(json);
-        console.log(json);
+        setmapCoordinates(json);
       })
-      .catch((err) => console.error("Could not load data", err)); // eslint-disable-line
+      .catch((err) => console.error("Could not load coordinates", err));
+
+    fetch("https://kyupid-api.vercel.app/api/users")
+      .then((resp) => resp.json())
+      .then((json) => {
+        setUserData(json.users);
+        // console.log(json.users);
+      })
+      .catch((err) => console.error("Could not load user daetails", err));
   }, []);
+
+  useEffect(() => {
+    if (!hoverInfo) return;
+    const properties = hoverInfo.feature.properties;
+    const area_id_on_map = properties.area_id;
+
+    if (areaId === area_id_on_map) return;
+
+    setAreaId(area_id_on_map);
+    if (properties.area_id) {
+      setIsConsoleOpen(true);
+    }
+
+    const users_in_area = users.filter((d) => {
+      return d.area_id === area_id_on_map;
+    });
+
+    setUserInSpecificArea(users_in_area);
+  }, [hoverInfo]);
 
   return (
     <div>
@@ -78,6 +107,7 @@ const App = () => {
       <Console
         isConsoleOpen={isConsoleOpen}
         setIsConsoleOpen={setIsConsoleOpen}
+        user={userInSpecificArea}
       />
       <Map
         mapboxAccessToken="pk.eyJ1IjoibWFud2luZGVyc2luZ2giLCJhIjoiY2w1MHM4aWVmMDZ6ODNvb2xoaHgxaW56NSJ9.OLpR6_6ziTpsMUomgz_Btw"
