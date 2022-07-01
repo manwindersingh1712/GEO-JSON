@@ -6,11 +6,12 @@ import React, {
   useCallback,
 } from "react";
 import Map, { Source, Layer } from "react-map-gl";
+import Navbar from "./components/navbar";
 
 const App = () => {
-  const [lng, setLng] = useState(77.57425723529988);
-  const [lat, setLat] = useState(13.014748000724378);
-  const [viewport, setViewport] = useState({
+  const [lng] = useState(77.57425723529988);
+  const [lat] = useState(13.014748000724378);
+  const [viewport] = useState({
     latitude: lat,
     longitude: lng,
     zoom: 10,
@@ -23,29 +24,6 @@ const App = () => {
     return allData;
   }, [allData]);
 
-  useEffect(() => {
-    fetch("https://kyupid-api.vercel.app/api/areas")
-      .then((resp) => resp.json())
-      .then((json) => {
-        setAllData(json);
-        console.log(json);
-      })
-      .catch((err) => console.error("Could not load data", err)); // eslint-disable-line
-  }, []);
-
-  const onHover = useCallback((event) => {
-    const {
-      features,
-      point: { x, y },
-    } = event;
-
-    const hoveredFeature = features && features[0];
-
-    // prettier-ignore
-    setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
-    console.log(hoveredFeature && { feature: hoveredFeature, x, y });
-  }, []);
-
   const layerStyle = {
     id: "data",
     type: "fill",
@@ -54,7 +32,7 @@ const App = () => {
         // property: 'percentile',
         stops: [
           [0, "#3288bd"],
-          [1, '#66c2a5'],
+          [1, "#66c2a5"],
           // [2, '#abdda4'],
           // [3, '#e6f598'],
           // [4, '#ffffbf'],
@@ -68,10 +46,32 @@ const App = () => {
     },
   };
 
+  const onHover = useCallback((event) => {
+    const {
+      features,
+      point: { x, y },
+    } = event;
+
+    const hoveredFeature = features && features[0];
+    setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
+    console.log(hoveredFeature && { feature: hoveredFeature, x, y });
+  }, []);
+
+  useEffect(() => {
+    fetch("https://kyupid-api.vercel.app/api/areas")
+      .then((resp) => resp.json())
+      .then((json) => {
+        setAllData(json);
+        console.log(json);
+      })
+      .catch((err) => console.error("Could not load data", err)); // eslint-disable-line
+  }, []);
+
   return (
     <div>
+      <Navbar />
       <Map
-        mapboxAccessToken={process.env.MAPBOX_ACCESS_TOKEN}
+        mapboxAccessToken="pk.eyJ1IjoibWFud2luZGVyc2luZ2giLCJhIjoiY2w1MHM4aWVmMDZ6ODNvb2xoaHgxaW56NSJ9.OLpR6_6ziTpsMUomgz_Btw"
         initialViewState={viewport}
         style={{ width: "100%", height: "100vh" }}
         mapStyle="mapbox://styles/mapbox/dark-v10"
