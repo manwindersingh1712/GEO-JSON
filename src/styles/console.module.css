@@ -1,13 +1,17 @@
 .container {
-  background-color: #ffffff;
+  /* background-color: #2f3238; */
+  background-color: #151a24da;
+  /* background-color: #151a24; */
   position: fixed;
-  right: 24px;
+  right: 20px;
   border-radius: 24px;
   top: calc(80px);
   width: 400px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 100px);
   z-index: 200;
   transition: all 300ms;
+  box-sizing: border-box;
+  padding: 58px 24px;
 }
 
 .container .cancel {
@@ -15,9 +19,35 @@
   right: 24px;
   top: 24px;
   background-color: transparent;
-  color: red;
+  color: white;
   font-weight: 900;
   border-width: 0;
   font-size: 16px;
   cursor: pointer;
+}
+
+.container .cancel:hover {
+  color: #03ffa5;
+}
+
+.container hr {
+  margin: 20px 0 0;
+}
+
+/* card */
+.details_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 24px 0 0;
+}
+
+.card {
+  color: #fff;
+  /* background-color: rgb(1, 9, 24); */
+  background-color: #151a24;
+  border-radius: 10px;
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
 }
