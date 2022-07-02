@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/console.module.css";
+import noDataFound from "../images/no-data.svg"
 
 const Console = ({ isConsoleOpen, setIsConsoleOpen, user }) => {
     const [maleUsers, setMaleUsers] = useState(0);
@@ -60,7 +61,13 @@ const Console = ({ isConsoleOpen, setIsConsoleOpen, user }) => {
                         <DetailsCard title="Female users" value={femaleUsers} />
 
                     </div>
-                </> : <>No data</>
+                </> :
+
+                <div className={styles.no_data_container}>
+                    <img src={noDataFound} alt="logo" />
+                    <h2 className="head">NO DATA FOUND</h2>
+                    <p>Hover over the green plots to see the insights</p>
+                </div>
             }
         </div>
     );
