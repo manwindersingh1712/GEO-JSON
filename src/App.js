@@ -80,7 +80,11 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (!hoverInfo) return;
+    if (!hoverInfo) {
+      setUserInSpecificArea(null);
+      setAreaId(null);
+      return;
+    }
     const properties = hoverInfo.feature.properties;
     const area_id_on_map = properties.area_id;
 
