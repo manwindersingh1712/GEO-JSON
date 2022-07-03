@@ -41,26 +41,24 @@ const Console = ({ isConsoleOpen, setIsConsoleOpen, user, setIsModalOpen }) => {
   }, [isConsoleOpen]);
 
   return (
-      <div className={styles.container} id="nav_container">
-        <button
-          onClick={() => setIsConsoleOpen(false)}
-          className={styles.cancel}
-        >
-          close
-        </button>
+    <div className={styles.container} id="nav_container">
+      <button onClick={() => setIsConsoleOpen(false)} className={styles.cancel}>
+        close
+      </button>
 
-        {user ? (
-          <>
-            <h2 className="head">INSIGHTS</h2>
-            <hr />
-            <div className={styles.details_container}>
-              <DetailsCard title="Total Users" value={user.length} />
-              <DetailsCard title="Paid Users" value={paidUsers} />
-              <DetailsCard title="Male users" value={maleUsers} />
-              <DetailsCard title="Female users" value={femaleUsers} />
-            </div>
-          </>
-        ) : (
+      {user ? (
+        <>
+          <h2 className="head">INSIGHTS</h2>
+          <hr />
+          <div className={styles.details_container}>
+            <DetailsCard title="Total Users" value={user.length} />
+            <DetailsCard title="Paid Users" value={paidUsers} />
+            <DetailsCard title="Male users" value={maleUsers} />
+            <DetailsCard title="Female users" value={femaleUsers} />
+          </div>
+        </>
+      ) : (
+        <div className={styles.center}>
           <div className={styles.no_data_container}>
             <img src={noDataFound} alt="logo" />
             <h2 className="head">NO DATA FOUND</h2>
@@ -72,8 +70,9 @@ const Console = ({ isConsoleOpen, setIsConsoleOpen, user, setIsModalOpen }) => {
               See more details
             </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+    </div>
   );
 };
 
