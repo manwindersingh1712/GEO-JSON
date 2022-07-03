@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import Map, { Source, Layer } from "react-map-gl";
 import Console from "./components/console";
+import Modal from "./components/modal";
 import Navbar from "./components/navbar";
 
 const App = () => {
@@ -15,6 +16,8 @@ const App = () => {
   const [mapCoordinates, setmapCoordinates] = useState(null);
   const [hoverInfo, setHoverInfo] = useState(null);
   const [isConsoleOpen, setIsConsoleOpen] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   //user data
   const [userData, setUserData] = useState(null);
@@ -102,6 +105,12 @@ const App = () => {
     setUserInSpecificArea(users_in_area);
   }, [hoverInfo]);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      setIsConsoleOpen(false)
+    }
+  }, [isModalOpen, isConsoleOpen])
+
   return (
     <div>
       <Navbar
@@ -112,7 +121,9 @@ const App = () => {
         isConsoleOpen={isConsoleOpen}
         setIsConsoleOpen={setIsConsoleOpen}
         user={userInSpecificArea}
+        setIsModalOpen={setIsModalOpen}
       />
+      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
       <Map
         mapboxAccessToken="pk.eyJ1IjoibWFud2luZGVyc2luZ2giLCJhIjoiY2w1MHM4aWVmMDZ6ODNvb2xoaHgxaW56NSJ9.OLpR6_6ziTpsMUomgz_Btw"
         initialViewState={viewport}

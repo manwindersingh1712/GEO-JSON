@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/console.module.css";
 import noDataFound from "../images/no-data.svg"
 
-const Console = ({ isConsoleOpen, setIsConsoleOpen, user }) => {
+const Console = ({ isConsoleOpen, setIsConsoleOpen, user, setIsModalOpen }) => {
     const [maleUsers, setMaleUsers] = useState(0);
     const [femaleUsers, setFemaleUsers] = useState(0);
     const [paidUsers, setpaidUsers] = useState(0);
@@ -67,6 +67,7 @@ const Console = ({ isConsoleOpen, setIsConsoleOpen, user }) => {
                     <img src={noDataFound} alt="logo" />
                     <h2 className="head">NO DATA FOUND</h2>
                     <p>Hover over the green plots to see the insights</p>
+                    <button onClick={() => setIsModalOpen(true)} className={styles.more_details} >See more details</button>
                 </div>
             }
         </div>

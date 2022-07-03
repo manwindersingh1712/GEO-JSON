@@ -6,6 +6,10 @@
   font-family: "Inter", sans-serif;
 }
 
+body {
+  background-color: black;
+}
+
 .head {
   font-family: "Inter", sans-serif;
   letter-spacing: 7px;
@@ -13,4 +17,8 @@
   font-weight: 700;
   line-height: 30px;
   color: #fff;
+}
+
+.highlight {
+  color: #151a24 !important;
 }

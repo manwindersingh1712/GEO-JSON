@@ -1,7 +1,5 @@
 .container {
-  /* background-color: #2f3238; */
   background-color: #151a24da;
-  /* background-color: #151a24; */
   position: fixed;
   right: 20px;
   border-radius: 24px;
@@ -69,4 +67,23 @@
   font-weight: 700;
   line-height: 24px;
   color: #fff;
+}
+
+.more_details {
+  border-width: 0;
+  background-color: #03ffa5;
+  border: 1px solid #03ffa5;
+  padding: 0.69em 1.11em;
+  border-radius: 4.17em;
+  font-size: 0.97em;
+  line-height: 1.5;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.more_details:hover {
+  background-color: transparent;
+  color: #03ffa5;
 }
