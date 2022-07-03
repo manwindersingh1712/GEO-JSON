@@ -101,3 +101,10 @@
   height: 180px;
   margin: 0 0 0px;
 }
+
+@media only screen and (max-width: 500px) {
+  .container {
+    right: 5%;
+    width: 90%;
+  }
+}

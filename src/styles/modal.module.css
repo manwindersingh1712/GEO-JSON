@@ -97,3 +97,47 @@
 .container .cancel:hover {
   color: #078d5e;
 }
+
+@media only screen and (max-width: 500px) {
+  .container {
+    width: 90%;
+    padding: 50px 20px;
+  }
+
+  .container h2 {
+    letter-spacing: 5px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .container p {
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .container .desc {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 14px 0 0;
+  }
+
+  .steps > div {
+    gap: 10px;
+  }
+
+  .step_count {
+    text-align: left;
+  }
+
+  .step{
+    text-align: left !important;
+  }
+
+  .container img {
+    width: 300px;
+    height: 180px;
+    margin: 20px 0 0;
+    border-radius: 24px;
+  }
+  
+}
